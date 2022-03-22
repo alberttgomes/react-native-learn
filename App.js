@@ -1,43 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { ImageBackground, 
          StyleSheet, 
          Text, View, 
          TextInput, 
          SafeAreaView,
-         Button,
-         Alert } from 'react-native';
-
-import image from './images/body.png';
+         Button} from 'react-native';
+import image from './images/james1.jpeg';
 
 
 export default function App() {
   
-  const [text, onChangeText] = React.useState("What you want know?");
+  const [text, setText] = React.useState('');
   
-  const Separator = () => {
-    <View style={styles.separator} />
+  // const Separator = () => {
+  //   <View style={styles.separator} />
+  // }
+
+  const submitButton = () => {
+      setText(text);
   }
 
   return (
-    <SafeAreaView>  
+    <SafeAreaView>
         <View style={styles.container}>
-          <ImageBackground source={image} style={styles.image}>
-              <Text style={styles.HOne}>News about James Webb</Text>
+          <ImageBackground source={image} style={styles.image} resizeMode="cover">
+              <Text style={styles.HOne}>What you want know about James Webb?</Text>
+                
                 <TextInput
                   style={styles.input}
-                  onChangeText={onChangeText}
+                  onChangeText={setText}
                   value={text}
                 />
-                <Separator />
+                {/* <Separator /> */}
                 <Button 
-                  title='Search'
-                  disabled
-                  onPress={() => Alert.alert('test')}
+                  title='Submit'
+                  onPress={submitButton}
                 />
+                
+                <Text style={styles.HOne}>
+                  List:
+                </Text>
+                <Text style={styles.HOne}>
+                  {title}
+                </Text>   
           </ImageBackground>
-          <StatusBar style="auto" />
         </View>
-    </SafeAreaView>    
+    </SafeAreaView>
   );
 }
 
@@ -53,12 +61,14 @@ const styles = StyleSheet.create({
   },
   HOne: {
     color:"#fff",
-    fontSize: 52,
+    fontSize: 30,
     fontWeight: "bold",
     textAlign:"center"
   },
   input: {
      height: 45,
+     width: 250,
+
      margin: 15,
      borderWidth: 2,
      borderRadius: 3,
