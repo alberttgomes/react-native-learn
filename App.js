@@ -1,78 +1,86 @@
 import React from 'react';
-import { ImageBackground, 
+import { ImageBackground,
+         Image, 
          StyleSheet, 
-         Text, View, 
+         Text, 
+         View, 
          TextInput, 
          SafeAreaView,
-         Button} from 'react-native';
-import image from './images/james1.jpeg';
+         Button } from 'react-native';
 
+import image from './images/spaceBody.png';
+import imageAv from './images/body.png';
 
-export default function App() {
+function App() {
   
-  const [text, setText] = React.useState('');
+  const [name, setName] = React.useState('');
+  //const nameList  = [];
   
   // const Separator = () => {
   //   <View style={styles.separator} />
   // }
 
-  const submitButton = () => {
-      setText(text);
-  }
-
   return (
-    <SafeAreaView>
-        <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
           <ImageBackground source={image} style={styles.image} resizeMode="cover">
-              <Text style={styles.HOne}>What you want know about James Webb?</Text>
-                
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setText}
-                  value={text}
-                />
-                {/* <Separator /> */}
-                <Button 
-                  title='Submit'
-                  onPress={submitButton}
-                />
-                
-                <Text style={styles.HOne}>
-                  List:
-                </Text>
-                <Text style={styles.HOne}>
-                  {title}
-                </Text>   
+              <Image
+                source={imageAv}
+                style={styles.imageAvatar}
+              />
+                <Text style={styles.HOne}>Fan Club James Webb</Text>
+                  <TextInput 
+                    style={styles.input}
+                    value={name}
+                    keyboardType="text"
+                    placeholder="insert your name here"
+                    onChangeText={e => setText(e.target.value)}
+                  />
+                  {/* <Separator /> */}
+                    <Button
+                      style={styles.button}
+                      title="Submit"
+                      onPress={() => setName(name)}     
+                    />
+                  <View style={styles.container}>
+                    {name}
+                  </View>
+                    
           </ImageBackground>
-        </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1 
+  },
+  button:{
+    width: 250
   },
   image: {
      flex: 1,
      justifyContent: "center"
   },
-  HOne: {
+  typography: {
     color:"#fff",
-    fontSize: 30,
     fontWeight: "bold",
     textAlign:"center"
   },
   input: {
      height: 45,
-     width: 250,
-
+     width: 350,
+     backgroundColor: "#FFFFFF",
      margin: 15,
      borderWidth: 2,
      borderRadius: 3,
      padding: 19
+  },
+  imageAvatar: {
+    width: 170,
+    height: 170,
+    marginTop: 50,
+    borderRadius: 500,
+    alignSelf: "center"
   },
   separator: {
     marginVertical: 8,
@@ -80,3 +88,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
+
+export default App;
