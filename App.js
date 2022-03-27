@@ -1,6 +1,7 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, FlatList, SafeAreaView } from 'react-native-web';
+import { FlatList, SafeAreaView } from 'react-native';
 
 
 
@@ -32,15 +33,9 @@ const DATA = [
   }
 ]
 
-const Team = ({ team }) => {
-  const [vote, setVote] = React.useState(null);
+const Item = ({item}) => {
   <View style={styles.title}>
-    <Text>{team}</Text>
-    <Button
-      onPress={() => setVote(vote + 1)}
-    >
-      PRESS {vote}
-    </Button>
+    <Text>{item.team}</Text>
   </View>
 } 
 
@@ -48,16 +43,18 @@ const Team = ({ team }) => {
 
 export default function App() {
   
-  const renderTeam = ({ team }) => (
-    <Team title={team.team} />
-  );
-  
+  const renderItem = ({ item }) => {
+      <Item
+        item={item}
+      />
+  }
+ 
   return (
       <SafeAreaView style={styles.container}>
         <Text>When will win the Final of the Cup North East?</Text>
         <FlatList
           data={DATA}
-          renderItem={renderTeam}
+          renderItem={renderItem}
           keyExtractor={team => team.id}
         />
       </SafeAreaView>
