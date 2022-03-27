@@ -1,63 +1,68 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { FlatList, SafeAreaView } from 'react-native';
-
-
+import { Button, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 
 
 const DATA = [
   {
     id: '0',
-    team: 'Náutico',
-    city: 'Recife',
-    state: 'PE'
+    firstName: 'Albert',
+    lastName: 'Gomes',
+    age: '26'
   },
   {
     id: '1',
-    team: 'CRB',
-    city: 'Maceió',
-    state: 'AL'
+    firstName: 'Diego',
+    lastName: 'Gomes',
+    age: '20'
   },
   {
     id: '2',
-    team: 'Fortaleza',
-    city: 'Fortaleza',
-    state: 'CE'
+    firstName: 'Wdyla',
+    lastName: 'Carvalho',
+    age: '19'
   },
   {
     id: '3',
-    team: 'Sport',
-    city: 'Recife',
-    state: 'PE'
-  }
-]
+    firstName: 'Yohana',
+    lastName: 'Texeira',
+    age: '20'
+  },
+  {
+    id: '4',
+    firstName: 'Thiago',
+    lastName: 'Guedes',
+    age: '22'
+  } 
 
-const Item = ({item}) => {
-  <View style={styles.title}>
-    <Text>{item.team}</Text>
+];
+
+const Item = ({ firstName }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{firstName}</Text>
   </View>
-} 
+);
 
+const App = () => {
+  const renderItem = ({ item }) => (
+    <Item firstName={item.firstName} />
+  );
 
-
-export default function App() {
-  
-  const renderItem = ({ item }) => {
-      <Item
-        item={item}
-      />
-  }
- 
   return (
-      <SafeAreaView style={styles.container}>
-        <Text>When will win the Final of the Cup North East?</Text>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={team => team.id}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titleT}>Students System for internt University</Text>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+      <View style={styles.view}>
+        <Button
+          title='PRESS ME'
+          style={styles.button}
+          onPress={() => alert("This is an list of students that course time")}
         />
-      </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -65,18 +70,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  listTeam: {
-    backgroundColor: "#0000B4",
+  item: {
+    backgroundColor: '#000Bf4',
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16    
+    marginHorizontal: 16,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 32
+    fontSize: 25,
+    color: '#FFFFFF'
+  },
+  titleT: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 20 
+  },
+  view: {
+    marginBottom: 170,
+    width: 350,
+    marginLeft: 30
+  },
+  button: {
+    fontWeight: 'bold',
   }
 });
+
+export default App;
