@@ -7,6 +7,12 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import { Appearance } from 'react-native';
 
+import { 
+	responsiveScreenHeight, 
+	responsiveScreenWidth, 
+	responsiveScreenFontSize
+       } from "react-native-responsive-dimensions"; 
+
 import PageGet from './src/pages/get';
 import PagePost from './src/pages/post';
 
@@ -70,6 +76,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    height: responsiveScreenHeight(50),
+    width: responsiveScreenWidth(50),
     justifyContent: 'center',
   },
 });

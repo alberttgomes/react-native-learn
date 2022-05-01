@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Project to univercity catolica, react native learn, react query and axios to operations CRUD post."
   }
 }

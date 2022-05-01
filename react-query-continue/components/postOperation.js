@@ -9,54 +9,33 @@ import { View,
 import { QueryClient, QueryClientProvider, useMutation } from "react-query"
 
 import axios from "axios";
-
-const token = "eca2552411048cdb522b077e3a6a9ec3ca6f05ef7f1938608da73d22e24bd050";
-
-const api = axios.create({
-    baseURL:"https://gorest.co.in/public/v2/",
-    headers:{
-        "Contente-type": "application/json",
-        "Authorization": `Bearer ${token}`
-    }
-}); 
-
+ 
 
 const PostOperation = () => {
-    const [id, setId] = React.useState(null);
-    const [name, setName] = React.useState("");
-    const [gender, setGender] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [status, setStatus] = React.useState("active");
-    
-    const { mutate: postData } = useMutation(
-        async () => {
-            return await api.post(`users`, {
-                id: id,
-                name: name,
-                gender: gender,
-                email: email,
-                status: status
-            })
-            .then((res) => res.json());
-        }
-    );
+    const token = "eca2552411048cdb522b077e3a6a9ec3ca6f05ef7f1938608da73d22e24bd050";
 
-    const persisteData = () => {
-        try{
-            postData();
-            if(postData.ok){
-                alert("Date save with success!");
-                setId(null);
-                setName("");
-                setGender("");
-                setEmail("");
-                setStatus("inactive");
-            }
-        } catch(err) {
-            console.error("Something wrong happened! ", err);
-            alert(err);
+    const api = axios.create({
+        baseURL:"https://gorest.co.in/public/v2/",
+        headers:{
+            'Contente-type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json' 
         }
+    });
+
+    const [input, setInput] = React.useState({
+        name:"",
+        email:"",
+        gender:"",
+        status:""
+    });
+    
+    const post = async (data) => {
+        const resul = await api.post(`users`, data).then(res => res);
+        return resul;
     }
+
+    const {mutate} = useMutation(post, {});
 
     return (
         <SafeAreaView style={styles.container}>
@@ -64,33 +43,32 @@ const PostOperation = () => {
             <View style={styles.boxInput}>
                 <TextInput
                     style={styles.input}
-                    value={id}
-                    onChangeText={setId}
-                    placeholder="Write your id here"
-                    keyboardType="numeric"
+                    value={input.name}
+                    onChangeText={value => setInput({...input,name:value})}
+                    placeholder="Name"
                 />
                 <TextInput
                     style={styles.input}
-                    value={name}
-                    onChangeText={setName}
-                    placeholder="Write your name here"
+                    value={input.email}
+                    onChangeText={value => setInput({...input,email:value})}
+                    placeholder="E-mail"
+                />
+                 <TextInput
+                    style={styles.input}
+                    value={input.gender}
+                    onChangeText={value => setInput({...input,gender:value})}
+                    placeholder="Gender"
                 />
                 <TextInput
                     style={styles.input}
-                    value={gender}
-                    onChangeText={setGender}
-                    placeholder="Write your gender here"
-                />
-                <TextInput
-                    style={styles.input}
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Write your email here"
+                    value={input.status}
+                    onChangeText={value => setInput({...input,status:value})}
+                    placeholder="Status"
                 />
             </View>
             <View>
                 <Button
-                    onPress={persisteData}
+                    onPress={() => mutate(input)}
                     title="Press"
                     color="#841584"
                 />
